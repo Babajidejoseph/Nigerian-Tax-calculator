@@ -11,25 +11,27 @@
     --accent-gradient: linear-gradient(135deg, #6B8B35 0%, #8FAD4A 100%);
     --success-gradient: linear-gradient(135deg, #4A5D23 0%, #7CB342 100%);
 
-    --bg-dark: #0D0D0D;
-    --bg-card: rgba(15, 20, 10, 0.9);
-    --bg-card-hover: rgba(25, 35, 15, 0.95);
-    --bg-input: rgba(74, 93, 35, 0.1);
+    /* Light Theme Colors */
+    --bg-light: #ffffff;
+    --bg-body: linear-gradient(135deg, #f8faf5 0%, #eef4e5 50%, #f0f5eb 100%);
+    --bg-card: rgba(255, 255, 255, 0.95);
+    --bg-card-hover: rgba(255, 255, 255, 1);
+    --bg-input: rgba(74, 93, 35, 0.08);
 
-    --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.75);
-    --text-muted: rgba(255, 255, 255, 0.45);
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
 
-    --border-color: rgba(74, 93, 35, 0.3);
-    --border-focus: rgba(107, 139, 53, 0.6);
+    --border-color: rgba(74, 93, 35, 0.2);
+    --border-focus: rgba(74, 93, 35, 0.5);
 
-    --positive: #7CB342;
-    --negative: #ef5350;
+    --positive: #4A5D23;
+    --negative: #dc3545;
 
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 16px 64px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 0 40px rgba(74, 93, 35, 0.4);
+    --shadow-sm: 0 2px 8px rgba(74, 93, 35, 0.1);
+    --shadow-md: 0 8px 32px rgba(74, 93, 35, 0.15);
+    --shadow-lg: 0 16px 64px rgba(74, 93, 35, 0.2);
+    --shadow-glow: 0 0 40px rgba(74, 93, 35, 0.15);
 
     --radius-sm: 8px;
     --radius-md: 12px;
@@ -53,7 +55,8 @@ html {
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: var(--bg-dark);
+    background: var(--bg-body);
+    background-attachment: fixed;
     color: var(--text-primary);
     min-height: 100vh;
     line-height: 1.6;
@@ -75,15 +78,15 @@ body {
 .gradient-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.5;
+    filter: blur(100px);
+    opacity: 0.3;
     animation: float 20s ease-in-out infinite;
 }
 
 .orb-1 {
     width: 600px;
     height: 600px;
-    background: linear-gradient(135deg, #4A5D23 0%, #2C3A14 100%);
+    background: linear-gradient(135deg, #c8d9a8 0%, #a8c882 100%);
     top: -200px;
     right: -200px;
     animation-delay: 0s;
@@ -92,7 +95,7 @@ body {
 .orb-2 {
     width: 500px;
     height: 500px;
-    background: linear-gradient(135deg, #3A4A1C 0%, #1A2508 100%);
+    background: linear-gradient(135deg, #d4e4bc 0%, #b8d498 100%);
     bottom: -150px;
     left: -150px;
     animation-delay: -7s;
@@ -101,12 +104,12 @@ body {
 .orb-3 {
     width: 400px;
     height: 400px;
-    background: linear-gradient(135deg, #6B8B35 0%, #4A5D23 100%);
+    background: linear-gradient(135deg, #e0ecd0 0%, #c8d9b0 100%);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     animation-delay: -14s;
-    opacity: 0.25;
+    opacity: 0.2;
 }
 
 @keyframes float {
