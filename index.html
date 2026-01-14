@@ -41,12 +41,44 @@
 
                     <form id="taxForm" class="tax-form">
                         <div class="form-group">
-                            <label for="userType">I am a</label>
+                            <label for="incomeType">Income Type</label>
                             <div class="select-wrapper">
-                                <select id="userType" name="userType">
-                                    <option value="employee">Employee</option>
-                                    <option value="freelancer">Freelancer</option>
-                                    <option value="business">Business Owner</option>
+                                <select id="incomeType" name="incomeType">
+                                    <option value="salary">Employment Salary</option>
+                                    <option value="commission">Commission Income</option>
+                                    <option value="lumpsum">Lump Sum Payment</option>
+                                    <option value="business">Business Income</option>
+                                    <option value="investment">Investment Income</option>
+                                    <option value="rental">Rental Income</option>
+                                    <option value="gift">Gift/Inheritance</option>
+                                </select>
+                                <span class="select-arrow">▼</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="salaryStructureGroup">
+                            <label for="salaryStructure">Salary Structure</label>
+                            <div class="select-wrapper">
+                                <select id="salaryStructure" name="salaryStructure">
+                                    <option value="regular">Regular Monthly Salary</option>
+                                    <option value="commission-based">Commission-Based Salary</option>
+                                    <option value="lumpsum-salary">Lump Sum (One-time Payment)</option>
+                                </select>
+                                <span class="select-arrow">▼</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="taxpayerCategory">Taxpayer Category</label>
+                            <div class="select-wrapper">
+                                <select id="taxpayerCategory" name="taxpayerCategory">
+                                    <option value="regular-employee">Regular Employee</option>
+                                    <option value="commission-employee">Commission-Based Employee</option>
+                                    <option value="freelancer">Freelancer/Consultant</option>
+                                    <option value="business-owner">Small Business Owner</option>
+                                    <option value="director">Director/Executive</option>
+                                    <option value="pensioner">Pensioner/Retiree</option>
+                                    <option value="mixed-income">Mixed Income Earner</option>
                                 </select>
                                 <span class="select-arrow">▼</span>
                             </div>
@@ -84,7 +116,29 @@
                                     </div>
                                     <span class="hint">Rent relief: up to ₦500,000 or 20% of rent</span>
                                 </div>
+                                <div class="form-group nested">
+                                    <label for="lifeAssurance">Life Assurance Premium (₦)</label>
+                                    <div class="input-wrapper">
+                                        <span class="currency-symbol">₦</span>
+                                        <input type="text" id="lifeAssurance" name="lifeAssurance" placeholder="0"
+                                            inputmode="numeric">
+                                    </div>
+                                    <span class="hint">Relief: max 10% of gross or ₦500,000</span>
+                                </div>
+                                <div class="form-group nested">
+                                    <label for="dependents">Number of Dependents</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="dependents" name="dependents" min="0" max="4" value="0"
+                                            style="padding-left: 1rem;">
+                                    </div>
+                                    <span class="hint">₦100,000 per dependent (max 4)</span>
+                                </div>
                                 <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="hasDisability">
+                                        <span class="checkmark"></span>
+                                        Person with Disability Relief (₦500,000)
+                                    </label>
                                     <label class="checkbox-label">
                                         <input type="checkbox" id="includeNhf" checked>
                                         <span class="checkmark"></span>
@@ -162,12 +216,33 @@
 
                         <div class="breakdown-section relief-section" id="reliefSection">
                             <h3>Tax Relief Applied</h3>
-                            <div class="breakdown-item relief">
+                            <div class="breakdown-item relief" id="rentReliefRow">
                                 <span class="item-label">
                                     <span class="item-icon">🏷️</span>
                                     Rent Relief
                                 </span>
                                 <span class="item-value positive" id="rentRelief">₦0</span>
+                            </div>
+                            <div class="breakdown-item relief" id="lifeAssuranceRow">
+                                <span class="item-label">
+                                    <span class="item-icon">🛡️</span>
+                                    Life Assurance Relief
+                                </span>
+                                <span class="item-value positive" id="lifeAssuranceRelief">₦0</span>
+                            </div>
+                            <div class="breakdown-item relief" id="dependentRow">
+                                <span class="item-label">
+                                    <span class="item-icon">👨‍👩‍👧‍👦</span>
+                                    Dependent Relief
+                                </span>
+                                <span class="item-value positive" id="dependentRelief">₦0</span>
+                            </div>
+                            <div class="breakdown-item relief" id="disabilityRow">
+                                <span class="item-label">
+                                    <span class="item-icon">♿</span>
+                                    Disability Relief
+                                </span>
+                                <span class="item-value positive" id="disabilityRelief">₦0</span>
                             </div>
                         </div>
 
