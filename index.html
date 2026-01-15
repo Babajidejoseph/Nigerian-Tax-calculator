@@ -103,7 +103,7 @@
 
                         <div class="form-group optional-section">
                             <div class="optional-header" onclick="toggleOptional()">
-                                <span>Optional Deductions</span>
+                                <span>Additional Deductions (Optional)</span>
                                 <span class="expand-icon" id="expandIcon">+</span>
                             </div>
                             <div class="optional-fields" id="optionalFields">
@@ -117,13 +117,49 @@
                                     <span class="hint">Rent relief: up to ₦500,000 or 20% of rent</span>
                                 </div>
                                 <div class="form-group nested">
-                                    <label for="lifeAssurance">Life Assurance Premium (₦)</label>
+                                    <label for="nhfContribution">NHF Contribution (Annual) (₦)</label>
                                     <div class="input-wrapper">
                                         <span class="currency-symbol">₦</span>
-                                        <input type="text" id="lifeAssurance" name="lifeAssurance" placeholder="0"
+                                        <input type="text" id="nhfContribution" name="nhfContribution" placeholder="0"
+                                            inputmode="numeric">
+                                    </div>
+                                    <span class="hint">National Housing Fund contribution</span>
+                                </div>
+                                <div class="form-group nested">
+                                    <label for="pensionContribution">Pension Contribution (Annual) (₦)</label>
+                                    <div class="input-wrapper">
+                                        <span class="currency-symbol">₦</span>
+                                        <input type="text" id="pensionContribution" name="pensionContribution"
+                                            placeholder="0" inputmode="numeric">
+                                    </div>
+                                    <span class="hint">Employee pension contribution</span>
+                                </div>
+                                <div class="form-group nested">
+                                    <label for="lifeInsurance">Life Insurance Premium (You & Spouse) (₦)</label>
+                                    <div class="input-wrapper">
+                                        <span class="currency-symbol">₦</span>
+                                        <input type="text" id="lifeInsurance" name="lifeInsurance" placeholder="0"
                                             inputmode="numeric">
                                     </div>
                                     <span class="hint">Relief: max 10% of gross or ₦500,000</span>
+                                </div>
+                                <div class="form-group nested">
+                                    <label for="nhisContribution">NHIS Contribution (Annual) (₦)</label>
+                                    <div class="input-wrapper">
+                                        <span class="currency-symbol">₦</span>
+                                        <input type="text" id="nhisContribution" name="nhisContribution" placeholder="0"
+                                            inputmode="numeric">
+                                    </div>
+                                    <span class="hint">National Health Insurance Scheme</span>
+                                </div>
+                                <div class="form-group nested">
+                                    <label for="loanInterest">Interest on Loan for Owner-Occupied House (₦)</label>
+                                    <div class="input-wrapper">
+                                        <span class="currency-symbol">₦</span>
+                                        <input type="text" id="loanInterest" name="loanInterest" placeholder="0"
+                                            inputmode="numeric">
+                                    </div>
+                                    <span class="hint">Annual interest paid on housing loan</span>
                                 </div>
                                 <div class="form-group nested">
                                     <label for="dependents">Number of Dependents</label>
@@ -138,16 +174,6 @@
                                         <input type="checkbox" id="hasDisability">
                                         <span class="checkmark"></span>
                                         Person with Disability Relief (₦500,000)
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" id="includeNhf" checked>
-                                        <span class="checkmark"></span>
-                                        Include NHF (2.5%)
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" id="includePension" checked>
-                                        <span class="checkmark"></span>
-                                        Include Pension (8%)
                                     </label>
                                 </div>
                             </div>
@@ -250,7 +276,7 @@
 
                         <div class="summary-section">
                             <div class="summary-item">
-                                <span>Total Deductions</span>
+                                <span>Total Tax Due</span>
                                 <span class="negative" id="totalDeductions">-₦0</span>
                             </div>
                             <div class="summary-item highlight">

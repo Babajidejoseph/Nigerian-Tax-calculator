@@ -42,11 +42,13 @@ const elements = {
     salaryStructure: document.getElementById('salaryStructure'),
     taxpayerCategory: document.getElementById('taxpayerCategory'),
     annualRent: document.getElementById('annualRent'),
-    lifeAssurance: document.getElementById('lifeAssurance'),
+    nhfContribution: document.getElementById('nhfContribution'),
+    pensionContribution: document.getElementById('pensionContribution'),
+    lifeInsurance: document.getElementById('lifeInsurance'),
+    nhisContribution: document.getElementById('nhisContribution'),
+    loanInterest: document.getElementById('loanInterest'),
     dependents: document.getElementById('dependents'),
     hasDisability: document.getElementById('hasDisability'),
-    includeNhf: document.getElementById('includeNhf'),
-    includePension: document.getElementById('includePension'),
     toggleBtns: document.querySelectorAll('.toggle-btn'),
     optionalFields: document.getElementById('optionalFields'),
     expandIcon: document.getElementById('expandIcon'),
@@ -182,37 +184,41 @@ function calculateDisabilityRelief(hasDisability) {
  */
 function calculateTax(grossAnnual, options = {}) {
     const {
-        includePension = true,
-        includeNhf = true,
         annualRent = 0,
-        lifeAssurance = 0,
+        nhfContribution = 0,
+        pensionContribution = 0,
+        lifeInsurance = 0,
+        nhisContribution = 0,
+        loanInterest = 0,
         dependents = 0,
         hasDisability = false,
         taxpayerCategory = 'regular-employee',
         incomeType = 'salary'
     } = options;
 
-    // Calculate pension contribution
-    const pensionContribution = includePension ? grossAnnual * RATES.pension : 0;
-
-    // Calculate NHF contribution
-    const nhfContribution = includeNhf ? grossAnnual * RATES.nhf : 0;
+    // Use provided contributions or calculate defaults
+    const actualPensionContribution = pensionContribution || 0;
+    const actualNhfContribution = nhfContribution || 0;
 
     // Calculate NSITF (employer contribution - shown for information)
     const nsitfContribution = grossAnnual * RATES.nsitf;
 
     // Calculate all tax reliefs
     const rentRelief = calculateRentRelief(annualRent);
-    const lifeAssuranceRelief = calculateLifeAssuranceRelief(lifeAssurance, grossAnnual);
+    const lifeAssuranceRelief = calculateLifeAssuranceRelief(lifeInsurance, grossAnnual);
     const dependentRelief = calculateDependentRelief(dependents);
     const disabilityRelief = calculateDisabilityRelief(hasDisability);
 
+    // NHIS and Loan Interest are also deductible
+    const nhisRelief = nhisContribution;
+    const loanInterestRelief = loanInterest;
+
     // Total tax reliefs for taxable income calculation
-    const totalReliefs = rentRelief + lifeAssuranceRelief + dependentRelief + disabilityRelief;
+    const totalReliefs = rentRelief + lifeAssuranceRelief + dependentRelief + disabilityRelief + nhisRelief + loanInterestRelief;
 
     // Calculate taxable income
     // Deductions: Pension contribution + All Tax Reliefs
-    const totalDeductionsFromTaxable = pensionContribution + totalReliefs;
+    const totalDeductionsFromTaxable = actualPensionContribution + totalReliefs;
     const taxableIncome = Math.max(0, grossAnnual - totalDeductionsFromTaxable);
 
     // Calculate PAYE tax
@@ -220,7 +226,7 @@ function calculateTax(grossAnnual, options = {}) {
 
     // Calculate total deductions from pay (employee contributions + PAYE)
     // Note: NSITF is employer contribution, not deducted from employee
-    const totalDeductions = payeTax + pensionContribution + nhfContribution;
+    const totalDeductions = payeTax + actualPensionContribution + actualNhfContribution;
 
     // Calculate take-home pay
     const takeHome = grossAnnual - totalDeductions;
@@ -232,13 +238,15 @@ function calculateTax(grossAnnual, options = {}) {
         grossAnnual,
         taxableIncome,
         payeTax,
-        pensionContribution,
-        nhfContribution,
+        pensionContribution: actualPensionContribution,
+        nhfContribution: actualNhfContribution,
         nsitfContribution,
         rentRelief,
         lifeAssuranceRelief,
         dependentRelief,
         disabilityRelief,
+        nhisRelief,
+        loanInterestRelief,
         totalReliefs,
         totalDeductions,
         takeHome,
@@ -282,9 +290,9 @@ function updateResults(results) {
     elements.dependentRow.style.display = results.dependentRelief > 0 ? 'flex' : 'none';
     elements.disabilityRow.style.display = results.disabilityRelief > 0 ? 'flex' : 'none';
 
-    // Show/hide pension and NHF rows based on selection
-    elements.pensionRow.style.display = elements.includePension.checked ? 'flex' : 'none';
-    elements.nhfRow.style.display = elements.includeNhf.checked ? 'flex' : 'none';
+    // Show/hide pension and NHF rows based on whether they have values
+    elements.pensionRow.style.display = results.pensionContribution > 0 ? 'flex' : 'none';
+    elements.nhfRow.style.display = results.nhfContribution > 0 ? 'flex' : 'none';
 
     // Scroll results into view on mobile
     if (window.innerWidth <= 1024) {
@@ -303,11 +311,13 @@ function handleSubmit(e) {
     // Get input values
     let grossIncome = parseInput(elements.grossIncome.value);
     const annualRent = parseInput(elements.annualRent.value);
-    const lifeAssurance = parseInput(elements.lifeAssurance.value);
+    const nhfContribution = parseInput(elements.nhfContribution.value);
+    const pensionContribution = parseInput(elements.pensionContribution.value);
+    const lifeInsurance = parseInput(elements.lifeInsurance.value);
+    const nhisContribution = parseInput(elements.nhisContribution.value);
+    const loanInterest = parseInput(elements.loanInterest.value);
     const dependents = parseInt(elements.dependents.value) || 0;
     const hasDisability = elements.hasDisability.checked;
-    const includePension = elements.includePension.checked;
-    const includeNhf = elements.includeNhf.checked;
     const taxpayerCategory = elements.taxpayerCategory.value;
     const incomeType = elements.incomeType.value;
 
@@ -318,10 +328,12 @@ function handleSubmit(e) {
 
     // Calculate taxes
     const results = calculateTax(grossIncome, {
-        includePension,
-        includeNhf,
         annualRent,
-        lifeAssurance,
+        nhfContribution,
+        pensionContribution,
+        lifeInsurance,
+        nhisContribution,
+        loanInterest,
         dependents,
         hasDisability,
         taxpayerCategory,
@@ -377,7 +389,11 @@ function init() {
     // Input formatting
     elements.grossIncome.addEventListener('blur', handleInputFormat);
     elements.annualRent.addEventListener('blur', handleInputFormat);
-    elements.lifeAssurance.addEventListener('blur', handleInputFormat);
+    elements.nhfContribution.addEventListener('blur', handleInputFormat);
+    elements.pensionContribution.addEventListener('blur', handleInputFormat);
+    elements.lifeInsurance.addEventListener('blur', handleInputFormat);
+    elements.nhisContribution.addEventListener('blur', handleInputFormat);
+    elements.loanInterest.addEventListener('blur', handleInputFormat);
 
     // Income type change - show/hide salary structure
     elements.incomeType.addEventListener('change', () => {
@@ -405,18 +421,6 @@ function init() {
     });
 
     // Checkbox changes trigger recalculation
-    elements.includePension.addEventListener('change', () => {
-        if (parseInput(elements.grossIncome.value) > 0) {
-            handleSubmit(new Event('submit'));
-        }
-    });
-
-    elements.includeNhf.addEventListener('change', () => {
-        if (parseInput(elements.grossIncome.value) > 0) {
-            handleSubmit(new Event('submit'));
-        }
-    });
-
     elements.hasDisability.addEventListener('change', () => {
         if (parseInput(elements.grossIncome.value) > 0) {
             handleSubmit(new Event('submit'));
@@ -438,6 +442,8 @@ function init() {
         lifeAssuranceRelief: 0,
         dependentRelief: 0,
         disabilityRelief: 0,
+        nhisRelief: 0,
+        loanInterestRelief: 0,
         totalReliefs: 0,
         totalDeductions: 0,
         takeHome: 0,
