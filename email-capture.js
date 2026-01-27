@@ -94,7 +94,7 @@ class EmailCapture {
                             <div class="error-message" id="consentError">You must provide consent to continue</div>
                         </div>
                         
-                        <button type="submit" class="email-submit-btn" id="emailSubmitBtn">
+                        <button type="submit" class="email-submit-btn" id="emailSubmitBtn" disabled>
                             <span>Continue to Calculator</span>
                             <span class="btn-icon">→</span>
                         </button>
@@ -144,6 +144,28 @@ class EmailCapture {
             continueBtn.addEventListener('click', () => this.hideModal());
         }
 
+        // Guide users to check consent when they click disabled submit button
+        const submitBtn = document.getElementById('emailSubmitBtn');
+        if (submitBtn) {
+            submitBtn.addEventListener('click', (e) => {
+                if (submitBtn.disabled && this.consentCheckbox && !this.consentCheckbox.checked) {
+                    e.preventDefault();
+                    this.validateConsent();
+                    // Briefly highlight the consent checkbox
+                    const consentLabel = this.consentCheckbox.closest('.consent-label');
+                    if (consentLabel) {
+                        consentLabel.style.outline = '2px solid #ef4444';
+                        consentLabel.style.outlineOffset = '4px';
+                        consentLabel.style.borderRadius = '8px';
+                        setTimeout(() => {
+                            consentLabel.style.outline = '';
+                            consentLabel.style.outlineOffset = '';
+                        }, 2000);
+                    }
+                }
+            });
+        }
+
         // Name input validation
         if (this.nameInput) {
             this.nameInput.addEventListener('blur', () => this.validateName());
@@ -166,7 +188,23 @@ class EmailCapture {
         if (this.consentCheckbox) {
             this.consentCheckbox.addEventListener('change', () => {
                 this.consentError.classList.remove('show');
+                this.updateSubmitButton();
             });
+        }
+    }
+
+    updateSubmitButton() {
+        const submitBtn = document.getElementById('emailSubmitBtn');
+        if (submitBtn && this.consentCheckbox) {
+            if (this.consentCheckbox.checked) {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                submitBtn.style.cursor = 'pointer';
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.5';
+                submitBtn.style.cursor = 'not-allowed';
+            }
         }
     }
 

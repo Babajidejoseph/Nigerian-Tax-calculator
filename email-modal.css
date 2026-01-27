@@ -170,8 +170,11 @@
 }
 
 .email-submit-btn:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
+    background: linear-gradient(135deg, #666 0%, #888 100%);
+    box-shadow: none;
+    transform: none;
 }
 
 .email-submit-btn .btn-icon {
