@@ -15,8 +15,12 @@ class EmailCapture {
         this.overlay = null;
         this.modal = null;
         this.form = null;
+        this.nameInput = null;
         this.emailInput = null;
-        this.errorMessage = null;
+        this.consentCheckbox = null;
+        this.nameError = null;
+        this.emailError = null;
+        this.consentError = null;
         this.hasSubmitted = this.checkSubmissionStatus();
 
         this.init();
@@ -49,10 +53,22 @@ class EmailCapture {
                     <div class="email-modal-header">
                         <div class="email-modal-icon">📧</div>
                         <h2>Get Free Tax Insights</h2>
-                        <p>Enter your email to access the Nigerian Tax Calculator and receive exclusive tax tips and updates.</p>
+                        <p>Enter your details to access the Nigerian Tax Calculator and receive exclusive tax tips and updates.</p>
                     </div>
                     
                     <form class="email-modal-form" id="emailCaptureForm">
+                        <div class="email-form-group">
+                            <label for="userName">Full Name *</label>
+                            <input 
+                                type="text" 
+                                id="userName" 
+                                class="email-input" 
+                                placeholder="John Doe"
+                                required
+                            >
+                            <div class="error-message" id="nameError">Please enter your name</div>
+                        </div>
+                        
                         <div class="email-form-group">
                             <label for="userEmail">Email Address *</label>
                             <input 
@@ -65,6 +81,19 @@ class EmailCapture {
                             <div class="error-message" id="emailError">Please enter a valid email address</div>
                         </div>
                         
+                        <div class="consent-group">
+                            <label class="consent-label">
+                                <input type="checkbox" id="ndpaConsent" required>
+                                <span class="consent-checkmark"></span>
+                                <span class="consent-text">
+                                    I consent to the collection and processing of my personal data in accordance with the 
+                                    <strong>Nigerian Data Protection Act (NDPA) 2023</strong>. I understand my data will be used 
+                                    solely for tax-related communications and I can withdraw consent at any time.
+                                </span>
+                            </label>
+                            <div class="error-message" id="consentError">You must provide consent to continue</div>
+                        </div>
+                        
                         <button type="submit" class="email-submit-btn" id="emailSubmitBtn">
                             <span>Continue to Calculator</span>
                             <span class="btn-icon">→</span>
@@ -72,7 +101,12 @@ class EmailCapture {
                     </form>
                     
                     <div class="email-privacy">
-                        <p>🔒 We respect your privacy. Your email will only be used for tax-related updates. No spam, ever.</p>
+                        <p><strong>🔒 Your Privacy Rights (NDPA 2023):</strong></p>
+                        <p style="font-size: 0.7rem; margin-top: 0.5rem; line-height: 1.4;">
+                            You have the right to access, correct, or delete your data at any time. 
+                            We will never share your information with third parties without your explicit consent. 
+                            Contact us to exercise your rights or withdraw consent.
+                        </p>
                     </div>
                 </div>
                 
@@ -90,8 +124,12 @@ class EmailCapture {
         // Get references to elements
         this.modal = document.getElementById('emailModal');
         this.form = document.getElementById('emailCaptureForm');
+        this.nameInput = document.getElementById('userName');
         this.emailInput = document.getElementById('userEmail');
-        this.errorMessage = document.getElementById('emailError');
+        this.consentCheckbox = document.getElementById('ndpaConsent');
+        this.nameError = document.getElementById('nameError');
+        this.emailError = document.getElementById('emailError');
+        this.consentError = document.getElementById('consentError');
     }
 
     setupEventListeners() {
@@ -106,12 +144,28 @@ class EmailCapture {
             continueBtn.addEventListener('click', () => this.hideModal());
         }
 
-        // Email input validation on blur
+        // Name input validation
+        if (this.nameInput) {
+            this.nameInput.addEventListener('blur', () => this.validateName());
+            this.nameInput.addEventListener('input', () => {
+                this.nameInput.classList.remove('error');
+                this.nameError.classList.remove('show');
+            });
+        }
+
+        // Email input validation
         if (this.emailInput) {
             this.emailInput.addEventListener('blur', () => this.validateEmail());
             this.emailInput.addEventListener('input', () => {
                 this.emailInput.classList.remove('error');
-                this.errorMessage.classList.remove('show');
+                this.emailError.classList.remove('show');
+            });
+        }
+
+        // Consent checkbox validation
+        if (this.consentCheckbox) {
+            this.consentCheckbox.addEventListener('change', () => {
+                this.consentError.classList.remove('show');
             });
         }
     }
@@ -149,29 +203,59 @@ class EmailCapture {
         }
     }
 
+    validateName() {
+        const name = this.nameInput.value.trim();
+
+        if (!name || name.length < 2) {
+            this.nameInput.classList.add('error');
+            this.nameError.classList.add('show');
+            this.nameError.textContent = 'Please enter your full name';
+            return false;
+        }
+
+        this.nameInput.classList.remove('error');
+        this.nameError.classList.remove('show');
+        return true;
+    }
+
     validateEmail() {
         const email = this.emailInput.value.trim();
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!email || !emailRegex.test(email)) {
             this.emailInput.classList.add('error');
-            this.errorMessage.classList.add('show');
+            this.emailError.classList.add('show');
             return false;
         }
 
         this.emailInput.classList.remove('error');
-        this.errorMessage.classList.remove('show');
+        this.emailError.classList.remove('show');
+        return true;
+    }
+
+    validateConsent() {
+        if (!this.consentCheckbox.checked) {
+            this.consentError.classList.add('show');
+            return false;
+        }
+
+        this.consentError.classList.remove('show');
         return true;
     }
 
     async handleSubmit(e) {
         e.preventDefault();
 
-        // Validate email
-        if (!this.validateEmail()) {
+        // Validate all fields
+        const nameValid = this.validateName();
+        const emailValid = this.validateEmail();
+        const consentValid = this.validateConsent();
+
+        if (!nameValid || !emailValid || !consentValid) {
             return;
         }
 
+        const name = this.nameInput.value.trim();
         const email = this.emailInput.value.trim();
         const submitBtn = document.getElementById('emailSubmitBtn');
 
@@ -181,7 +265,7 @@ class EmailCapture {
 
         try {
             // Submit to Google Sheets
-            await this.submitToGoogleSheets(email);
+            await this.submitToGoogleSheets(name, email);
 
             // Mark as submitted
             this.markAsSubmitted();
@@ -197,11 +281,13 @@ class EmailCapture {
         }
     }
 
-    async submitToGoogleSheets(email) {
+    async submitToGoogleSheets(name, email) {
         const timestamp = new Date().toISOString();
         const data = {
+            name: name,
             email: email,
             timestamp: timestamp,
+            consent: 'NDPA 2023 - Granted',
             source: 'Nigerian Tax Calculator'
         };
 

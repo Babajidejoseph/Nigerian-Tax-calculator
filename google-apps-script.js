@@ -23,18 +23,20 @@ function doPost(e) {
         var data = JSON.parse(e.postData.contents);
 
         // Extract fields
+        var name = data.name || '';
         var email = data.email || '';
         var timestamp = data.timestamp || new Date().toISOString();
+        var consent = data.consent || 'Not specified';
         var source = data.source || 'Unknown';
 
         // Append data to the sheet
-        sheet.appendRow([email, timestamp, source]);
+        sheet.appendRow([name, email, timestamp, consent, source]);
 
         // Return success response
         return ContentService
             .createTextOutput(JSON.stringify({
                 'status': 'success',
-                'message': 'Email saved successfully'
+                'message': 'Data saved successfully'
             }))
             .setMimeType(ContentService.MimeType.JSON);
 

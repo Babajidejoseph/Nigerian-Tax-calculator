@@ -88,9 +88,9 @@ After deploying to Netlify:
 
 **Example result in sheet:**
 ```
-| Email              | Timestamp                | Source                    |
-|--------------------|--------------------------|---------------------------|
-| test@example.com   | 2026-01-27T09:54:12.000Z | Nigerian Tax Calculator   |
+| Name           | Email              | Timestamp                | Consent             | Source                    |
+|----------------|--------------------|--------------------------|---------------------|---------------------------|
+| John Doe       | test@example.com   | 2026-01-27T09:54:12.000Z | NDPA 2023 - Granted | Nigerian Tax Calculator   |
 ```
 
 ---
