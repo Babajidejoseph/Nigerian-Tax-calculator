@@ -1,0 +1,314 @@
+/* ===== Email Capture Modal ===== */
+.email-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(13, 13, 13, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 1;
+    animation: fadeIn 0.3s ease;
+}
+
+.email-modal-overlay.hidden {
+    display: none;
+}
+
+.email-modal {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 2.5rem;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: var(--shadow-lg), 0 0 80px rgba(74, 93, 35, 0.3);
+    animation: slideUp 0.4s ease;
+    position: relative;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.email-modal-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.email-modal-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1rem;
+    background: var(--primary-gradient);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: var(--shadow-glow);
+}
+
+.email-modal-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+.email-modal-header p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.email-modal-form {
+    margin-bottom: 1.5rem;
+}
+
+.email-form-group {
+    margin-bottom: 1rem;
+}
+
+.email-form-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.email-input {
+    width: 100%;
+    padding: 1rem;
+    background: var(--bg-input);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all var(--transition-fast);
+}
+
+.email-input:focus {
+    outline: none;
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(74, 93, 35, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.email-input.error {
+    border-color: var(--negative);
+}
+
+.error-message {
+    color: var(--negative);
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    display: none;
+}
+
+.error-message.show {
+    display: block;
+}
+
+.email-submit-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: var(--primary-gradient);
+    border: none;
+    border-radius: var(--radius-md);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    font-family: inherit;
+    box-shadow: var(--shadow-sm), 0 0 30px rgba(74, 93, 35, 0.3);
+}
+
+.email-submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md), 0 0 40px rgba(74, 93, 35, 0.4);
+}
+
+.email-submit-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.email-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.email-submit-btn .btn-icon {
+    font-size: 1.25rem;
+    transition: transform var(--transition-fast);
+}
+
+.email-submit-btn:hover:not(:disabled) .btn-icon {
+    transform: translateX(4px);
+}
+
+/* Loading State */
+.email-submit-btn.loading {
+    pointer-events: none;
+}
+
+.email-submit-btn.loading::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    margin-left: 0.5rem;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.email-privacy {
+    text-align: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.email-privacy p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.email-privacy a {
+    color: var(--brand-green);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-fast);
+}
+
+.email-privacy a:hover {
+    color: var(--brand-green-light);
+}
+
+/* Success State */
+.email-success {
+    display: none;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.email-success.show {
+    display: block;
+    animation: fadeIn 0.4s ease;
+}
+
+.email-success-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #4A5D23 0%, #7CB342 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    animation: scaleIn 0.5s ease;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.email-success h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.email-success p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.email-success-continue {
+    padding: 1rem 2rem;
+    background: var(--primary-gradient);
+    border: none;
+    border-radius: var(--radius-md);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    font-family: inherit;
+}
+
+.email-success-continue:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .email-modal {
+        padding: 2rem 1.5rem;
+    }
+
+    .email-modal-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .email-modal-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 1.75rem;
+    }
+}

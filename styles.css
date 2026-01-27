@@ -147,12 +147,14 @@ body {
 /* ===== Header ===== */
 .header {
     padding: 1rem 0 2rem;
+    text-align: center;
 }
 
 .logo {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
 .logo-image {
