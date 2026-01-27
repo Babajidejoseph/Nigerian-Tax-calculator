@@ -51,7 +51,9 @@ class EmailCapture {
             <div class="email-modal" id="emailModal">
                 <div id="emailFormContent">
                     <div class="email-modal-header">
-                        <div class="email-modal-icon">🧾</div>
+                        <div class="email-modal-icon">
+                            <img src="tax-icon.png" alt="Tax Calculator" style="width: 48px; height: 48px; object-fit: contain;">
+                        </div>
                         <h2>Get Free Tax Insights</h2>
                         <p>Enter your details to access the Nigerian Tax Calculator and receive exclusive tax tips and updates.</p>
                     </div>
