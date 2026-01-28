@@ -392,6 +392,8 @@ body {
     border-radius: var(--radius-sm);
     display: inline-block;
     font-weight: 500;
+    color: white;
+    /* Make text white */
 }
 
 /* ===== Form Styles ===== */
