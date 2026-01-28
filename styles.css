@@ -807,18 +807,20 @@ input::placeholder {
     color: var(--text-muted);
 }
 
-/* ===== Info Cards (inside intro-content) ===== */
-.intro-content .info-cards {
-    display: grid;
-    grid-template-columns: 1fr !important;
-    gap: 1rem;
-    margin-top: 2rem;
-}
-
+/* ===== Info Cards Section ===== */
 .info-cards {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+    .info-cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
 }
 
 .info-card {
@@ -902,9 +904,7 @@ input::placeholder {
         grid-template-columns: 1fr;
     }
 
-    .info-cards {
-        grid-template-columns: 1fr;
-    }
+    /* info-cards rule removed to allow 3 columns on tablet landscape */
 
     /* Stack intro and results sections */
     .intro-section {
