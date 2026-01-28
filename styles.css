@@ -214,7 +214,8 @@ body {
 /* ===== Introduction Section ===== */
 .intro-section {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 3fr;
+    /* Left 40%, Right 60% - wider calculator */
     gap: 3rem;
     margin-bottom: 3rem;
     align-items: start;
@@ -277,7 +278,8 @@ body {
 /* ===== Results Section ===== */
 .results-section {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 3fr;
+    /* Match intro section ratio */
     gap: 3rem;
     margin-bottom: 3rem;
     align-items: start;
@@ -868,6 +870,21 @@ input::placeholder {
 }
 
 /* ===== Responsive Design ===== */
+
+/* Large tablets / Small desktops - reduce gap */
+@media (max-width: 1200px) {
+    .intro-section {
+        gap: 2rem;
+    }
+
+    .results-section {
+        gap: 2rem;
+    }
+
+    .container {
+        padding: 1.5rem;
+    }
+}
 
 /* Tablet landscape - stack columns */
 @media (max-width: 1024px) {
