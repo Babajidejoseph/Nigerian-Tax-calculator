@@ -278,8 +278,8 @@ body {
 /* ===== Results Section ===== */
 .results-section {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    /* Match intro section ratio */
+    grid-template-columns: 1fr 1fr;
+    /* Equal columns side-by-side */
     gap: 2.5rem;
     margin-bottom: 3rem;
     align-items: start;
