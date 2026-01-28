@@ -939,6 +939,9 @@ input::placeholder {
 
     .results-section {
         grid-template-columns: 1fr;
+        grid-template-areas:
+            "results"
+            "explanation";
         gap: 2rem;
     }
 }
