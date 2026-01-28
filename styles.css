@@ -214,9 +214,9 @@ body {
 /* ===== Introduction Section ===== */
 .intro-section {
     display: grid;
-    grid-template-columns: 2fr 3fr;
-    /* Left 40%, Right 60% - wider calculator */
-    gap: 3rem;
+    grid-template-columns: 1fr 2fr;
+    /* Left 33%, Right 67% - much wider calculator */
+    gap: 2.5rem;
     margin-bottom: 3rem;
     align-items: start;
 }
@@ -278,9 +278,9 @@ body {
 /* ===== Results Section ===== */
 .results-section {
     display: grid;
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: 1fr 2fr;
     /* Match intro section ratio */
-    gap: 3rem;
+    gap: 2.5rem;
     margin-bottom: 3rem;
     align-items: start;
     grid-template-areas: "results explanation";
