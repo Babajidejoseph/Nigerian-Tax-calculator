@@ -789,15 +789,18 @@ input::placeholder {
     color: var(--text-muted);
 }
 
-/* ===== Info Cards Section ===== */
-.info-cards-section {
-    margin-bottom: 3rem;
+/* ===== Info Cards (inside intro-content) ===== */
+.intro-content .info-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
 }
 
 .info-cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 1rem;
 }
 
 .info-card {
