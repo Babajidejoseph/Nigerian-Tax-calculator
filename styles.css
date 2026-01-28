@@ -230,6 +230,10 @@ body {
     border-radius: var(--radius-xl);
     padding: 2.5rem;
     box-shadow: var(--shadow-md);
+    width: 100%;
+    /* Force full width alignment */
+    height: 100%;
+    /* Match height if possible */
 }
 
 .intro-content h2 {
@@ -289,6 +293,8 @@ body {
 
 .results-wrapper {
     grid-area: results;
+    width: 100%;
+    /* Force full width */
 }
 
 .results-explanation {
@@ -300,6 +306,8 @@ body {
     border-radius: var(--radius-xl);
     padding: 2.5rem;
     box-shadow: var(--shadow-md);
+    width: 100%;
+    /* Force full alignment */
 }
 
 .results-explanation h2 {
@@ -342,6 +350,11 @@ body {
 .component-item strong {
     color: var(--brand-green);
     font-weight: 600;
+}
+
+.calculator-wrapper {
+    width: 100%;
+    /* Force full width */
 }
 
 .calculator-section {
