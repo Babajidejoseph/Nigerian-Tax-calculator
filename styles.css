@@ -214,8 +214,9 @@ body {
 /* ===== Introduction Section ===== */
 .intro-section {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    /* Left 33%, Right 67% - much wider calculator */
+    grid-template-columns: 1fr 1fr;
+    /* Equal columns to match results section */
+    /* Left 50%, Right 50% */
     gap: 2.5rem;
     margin-bottom: 3rem;
     align-items: start;
