@@ -346,9 +346,10 @@ body {
 
 .calculator-section {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
+    /* Full width so card fills the column */
     gap: 2rem;
-    margin-bottom: 3rem;
+    margin-bottom: 0;
 }
 
 /* ===== Cards ===== */
@@ -358,7 +359,8 @@ body {
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-xl);
-    padding: 2rem;
+    padding: 2.5rem;
+    /* Increased to match intro-content and results-explanation */
     box-shadow: var(--shadow-md);
     transition: all var(--transition-normal);
 }
