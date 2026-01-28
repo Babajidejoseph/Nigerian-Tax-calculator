@@ -423,28 +423,32 @@
 /* Standard mobile phones */
 @media (max-width: 480px) {
     .email-modal-overlay {
-        padding: 0.5rem;
+        padding: 0;
+        align-items: flex-start;
     }
 
     .email-modal {
-        padding: 1.75rem 1.25rem;
-        border-radius: var(--radius-lg);
+        padding: 2rem 1.5rem;
+        border-radius: 0;
+        max-width: 100%;
+        min-height: 100vh;
+        width: 100%;
     }
 
     .email-modal-header {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.75rem;
     }
 
     .email-modal-icon {
-        width: 56px;
-        height: 56px;
+        width: 64px;
+        height: 64px;
         font-size: 1.75rem;
-        margin-bottom: 0.875rem;
+        margin-bottom: 1rem;
     }
 
     .email-modal-icon img {
-        width: 40px !important;
-        height: 40px !important;
+        width: 44px !important;
+        height: 44px !important;
     }
 
     .email-modal-header h2 {

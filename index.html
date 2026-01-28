@@ -33,288 +33,368 @@
         </header>
 
         <main class="main-content">
-            <section class="calculator-section">
-                <div class="card input-card">
-                    <div class="card-header">
-                        <h2>Calculate Your Tax</h2>
-                        <p>Enter your income details below</p>
+            <!-- Introduction Section with Description -->
+            <section class="intro-section">
+                <div class="intro-content">
+                    <h2>Understanding Your Nigerian Tax Obligations Made Simple</h2>
+                    <p class="intro-text">
+                        Nigeria's National Tax Act 2025 brings clarity to tax compliance, but calculating your exact
+                        obligations can be complex. This calculator simplifies the process by computing all mandatory
+                        deductions including PAYE, pension contributions, National Housing Fund (NHF), and NSITF in one
+                        convenient tool.
+                    </p>
+                    <p class="intro-text">
+                        Whether you're a salaried employee planning your budget, a freelancer estimating quarterly
+                        taxes, or a business owner managing payroll, accurate tax calculations are essential for
+                        compliance and financial planning.
+                    </p>
+
+                    <div class="why-matters">
+                        <h3>Why This Matters</h3>
+                        <ul class="benefits-list">
+                            <li>✓ Avoid penalties through accurate tax planning</li>
+                            <li>✓ Understand your true take-home pay</li>
+                            <li>✓ Maximize available tax reliefs and deductions</li>
+                            <li>✓ Make informed financial decisions</li>
+                            <li>✓ Ensure NTA 2025 compliance</li>
+                        </ul>
                     </div>
-
-                    <form id="taxForm" class="tax-form">
-                        <div class="form-group">
-                            <label for="incomeType">Income Type</label>
-                            <div class="select-wrapper">
-                                <select id="incomeType" name="incomeType">
-                                    <option value="salary">Employment Salary</option>
-                                    <option value="commission">Commission Income</option>
-                                    <option value="lumpsum">Lump Sum Payment</option>
-                                    <option value="business">Business Income</option>
-                                    <option value="investment">Investment Income</option>
-                                    <option value="rental">Rental Income</option>
-                                    <option value="gift">Gift/Inheritance</option>
-                                </select>
-                                <span class="select-arrow">▼</span>
-                            </div>
-                        </div>
-
-                        <div class="form-group" id="salaryStructureGroup">
-                            <label for="salaryStructure">Salary Structure</label>
-                            <div class="select-wrapper">
-                                <select id="salaryStructure" name="salaryStructure">
-                                    <option value="regular">Regular Monthly Salary</option>
-                                    <option value="commission-based">Commission-Based Salary</option>
-                                    <option value="lumpsum-salary">Lump Sum (One-time Payment)</option>
-                                </select>
-                                <span class="select-arrow">▼</span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="taxpayerCategory">Taxpayer Category</label>
-                            <div class="select-wrapper">
-                                <select id="taxpayerCategory" name="taxpayerCategory">
-                                    <option value="regular-employee">Regular Employee</option>
-                                    <option value="commission-employee">Commission-Based Employee</option>
-                                    <option value="freelancer">Freelancer/Consultant</option>
-                                    <option value="business-owner">Small Business Owner</option>
-                                    <option value="director">Director/Executive</option>
-                                    <option value="pensioner">Pensioner/Retiree</option>
-                                    <option value="mixed-income">Mixed Income Earner</option>
-                                </select>
-                                <span class="select-arrow">▼</span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="grossIncome">Gross Income (₦)</label>
-                            <div class="input-wrapper">
-                                <span class="currency-symbol">₦</span>
-                                <input type="text" id="grossIncome" name="grossIncome" placeholder="0"
-                                    inputmode="numeric" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="period">Period</label>
-                            <div class="toggle-group">
-                                <button type="button" class="toggle-btn active" data-period="monthly">Monthly</button>
-                                <button type="button" class="toggle-btn" data-period="annual">Annual</button>
-                            </div>
-                        </div>
-
-                        <div class="form-group optional-section">
-                            <div class="optional-header" onclick="toggleOptional()">
-                                <span>Additional Deductions (Optional)</span>
-                                <span class="expand-icon" id="expandIcon">+</span>
-                            </div>
-                            <div class="optional-fields" id="optionalFields">
-                                <div class="form-group nested">
-                                    <label for="annualRent">Annual Rent Paid (₦)</label>
-                                    <div class="input-wrapper">
-                                        <span class="currency-symbol">₦</span>
-                                        <input type="text" id="annualRent" name="annualRent" placeholder="0"
-                                            inputmode="numeric">
-                                    </div>
-                                    <span class="hint">Rent relief: up to ₦500,000 or 20% of rent</span>
-                                </div>
-                                <div class="form-group nested">
-                                    <label for="nhfContribution">NHF Contribution (Annual) (₦)</label>
-                                    <div class="input-wrapper">
-                                        <span class="currency-symbol">₦</span>
-                                        <input type="text" id="nhfContribution" name="nhfContribution" placeholder="0"
-                                            inputmode="numeric">
-                                    </div>
-                                    <span class="hint">National Housing Fund contribution</span>
-                                </div>
-                                <div class="form-group nested">
-                                    <label for="pensionContribution">Pension Contribution (Annual) (₦)</label>
-                                    <div class="input-wrapper">
-                                        <span class="currency-symbol">₦</span>
-                                        <input type="text" id="pensionContribution" name="pensionContribution"
-                                            placeholder="0" inputmode="numeric">
-                                    </div>
-                                    <span class="hint">Employee pension contribution</span>
-                                </div>
-                                <div class="form-group nested">
-                                    <label for="lifeInsurance">Life Insurance Premium (You & Spouse) (₦)</label>
-                                    <div class="input-wrapper">
-                                        <span class="currency-symbol">₦</span>
-                                        <input type="text" id="lifeInsurance" name="lifeInsurance" placeholder="0"
-                                            inputmode="numeric">
-                                    </div>
-                                    <span class="hint">Relief: max 10% of gross or ₦500,000</span>
-                                </div>
-                                <div class="form-group nested">
-                                    <label for="nhisContribution">NHIS Contribution (Annual) (₦)</label>
-                                    <div class="input-wrapper">
-                                        <span class="currency-symbol">₦</span>
-                                        <input type="text" id="nhisContribution" name="nhisContribution" placeholder="0"
-                                            inputmode="numeric">
-                                    </div>
-                                    <span class="hint">National Health Insurance Scheme</span>
-                                </div>
-                                <div class="form-group nested">
-                                    <label for="loanInterest">Interest on Loan for Owner-Occupied House (₦)</label>
-                                    <div class="input-wrapper">
-                                        <span class="currency-symbol">₦</span>
-                                        <input type="text" id="loanInterest" name="loanInterest" placeholder="0"
-                                            inputmode="numeric">
-                                    </div>
-                                    <span class="hint">Annual interest paid on housing loan</span>
-                                </div>
-                                <div class="form-group nested">
-                                    <label for="dependents">Number of Dependents</label>
-                                    <div class="input-wrapper">
-                                        <input type="number" id="dependents" name="dependents" min="0" max="4" value="0"
-                                            style="padding-left: 1rem;">
-                                    </div>
-                                    <span class="hint">₦100,000 per dependent (max 4)</span>
-                                </div>
-                                <div class="checkbox-group">
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" id="hasDisability">
-                                        <span class="checkmark"></span>
-                                        Person with Disability Relief (₦500,000)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="calculate-btn">
-                            <span>Calculate Tax</span>
-                            <span class="btn-icon">→</span>
-                        </button>
-                    </form>
                 </div>
 
-                <div class="card results-card" id="resultsCard">
-                    <div class="card-header">
-                        <h2>Your Tax Breakdown</h2>
-                        <div class="period-display" id="periodDisplay">Monthly</div>
+                <div class="calculator-wrapper">
+                    <section class="calculator-section">
+                        <div class="card input-card">
+                            <div class="card-header">
+                                <h2>Calculate Your Tax</h2>
+                                <p>Enter your income details below</p>
+                            </div>
+
+                            <form id="taxForm" class="tax-form">
+                                <div class="form-group">
+                                    <label for="incomeType">Income Type</label>
+                                    <div class="select-wrapper">
+                                        <select id="incomeType" name="incomeType">
+                                            <option value="salary">Employment Salary</option>
+                                            <option value="commission">Commission Income</option>
+                                            <option value="lumpsum">Lump Sum Payment</option>
+                                            <option value="business">Business Income</option>
+                                            <option value="investment">Investment Income</option>
+                                            <option value="rental">Rental Income</option>
+                                            <option value="gift">Gift/Inheritance</option>
+                                        </select>
+                                        <span class="select-arrow">▼</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="salaryStructureGroup">
+                                    <label for="salaryStructure">Salary Structure</label>
+                                    <div class="select-wrapper">
+                                        <select id="salaryStructure" name="salaryStructure">
+                                            <option value="regular">Regular Monthly Salary</option>
+                                            <option value="commission-based">Commission-Based Salary</option>
+                                            <option value="lumpsum-salary">Lump Sum (One-time Payment)</option>
+                                        </select>
+                                        <span class="select-arrow">▼</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="taxpayerCategory">Taxpayer Category</label>
+                                    <div class="select-wrapper">
+                                        <select id="taxpayerCategory" name="taxpayerCategory">
+                                            <option value="regular-employee">Regular Employee</option>
+                                            <option value="commission-employee">Commission-Based Employee</option>
+                                            <option value="freelancer">Freelancer/Consultant</option>
+                                            <option value="business-owner">Small Business Owner</option>
+                                            <option value="director">Director/Executive</option>
+                                            <option value="pensioner">Pensioner/Retiree</option>
+                                            <option value="mixed-income">Mixed Income Earner</option>
+                                        </select>
+                                        <span class="select-arrow">▼</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="grossIncome">Gross Income (₦)</label>
+                                    <div class="input-wrapper">
+                                        <span class="currency-symbol">₦</span>
+                                        <input type="text" id="grossIncome" name="grossIncome" placeholder="0"
+                                            inputmode="numeric" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="period">Period</label>
+                                    <div class="toggle-group">
+                                        <button type="button" class="toggle-btn active"
+                                            data-period="monthly">Monthly</button>
+                                        <button type="button" class="toggle-btn" data-period="annual">Annual</button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group optional-section">
+                                    <div class="optional-header" onclick="toggleOptional()">
+                                        <span>Additional Deductions (Optional)</span>
+                                        <span class="expand-icon" id="expandIcon">+</span>
+                                    </div>
+                                    <div class="optional-fields" id="optionalFields">
+                                        <div class="form-group nested">
+                                            <label for="annualRent">Annual Rent Paid (₦)</label>
+                                            <div class="input-wrapper">
+                                                <span class="currency-symbol">₦</span>
+                                                <input type="text" id="annualRent" name="annualRent" placeholder="0"
+                                                    inputmode="numeric">
+                                            </div>
+                                            <span class="hint">Rent relief: up to ₦500,000 or 20% of rent</span>
+                                        </div>
+                                        <div class="form-group nested">
+                                            <label for="nhfContribution">NHF Contribution (Annual) (₦)</label>
+                                            <div class="input-wrapper">
+                                                <span class="currency-symbol">₦</span>
+                                                <input type="text" id="nhfContribution" name="nhfContribution"
+                                                    placeholder="0" inputmode="numeric">
+                                            </div>
+                                            <span class="hint">National Housing Fund contribution</span>
+                                        </div>
+                                        <div class="form-group nested">
+                                            <label for="pensionContribution">Pension Contribution (Annual) (₦)</label>
+                                            <div class="input-wrapper">
+                                                <span class="currency-symbol">₦</span>
+                                                <input type="text" id="pensionContribution" name="pensionContribution"
+                                                    placeholder="0" inputmode="numeric">
+                                            </div>
+                                            <span class="hint">Employee pension contribution</span>
+                                        </div>
+                                        <div class="form-group nested">
+                                            <label for="lifeInsurance">Life Insurance Premium (You & Spouse) (₦)</label>
+                                            <div class="input-wrapper">
+                                                <span class="currency-symbol">₦</span>
+                                                <input type="text" id="lifeInsurance" name="lifeInsurance"
+                                                    placeholder="0" inputmode="numeric">
+                                            </div>
+                                            <span class="hint">Relief: max 10% of gross or ₦500,000</span>
+                                        </div>
+                                        <div class="form-group nested">
+                                            <label for="nhisContribution">NHIS Contribution (Annual) (₦)</label>
+                                            <div class="input-wrapper">
+                                                <span class="currency-symbol">₦</span>
+                                                <input type="text" id="nhisContribution" name="nhisContribution"
+                                                    placeholder="0" inputmode="numeric">
+                                            </div>
+                                            <span class="hint">National Health Insurance Scheme</span>
+                                        </div>
+                                        <div class="form-group nested">
+                                            <label for="loanInterest">Interest on Loan for Owner-Occupied House
+                                                (₦)</label>
+                                            <div class="input-wrapper">
+                                                <span class="currency-symbol">₦</span>
+                                                <input type="text" id="loanInterest" name="loanInterest" placeholder="0"
+                                                    inputmode="numeric">
+                                            </div>
+                                            <span class="hint">Annual interest paid on housing loan</span>
+                                        </div>
+                                        <div class="form-group nested">
+                                            <label for="dependents">Number of Dependents</label>
+                                            <div class="input-wrapper">
+                                                <input type="number" id="dependents" name="dependents" min="0" max="4"
+                                                    value="0" style="padding-left: 1rem;">
+                                            </div>
+                                            <span class="hint">₦100,000 per dependent (max 4)</span>
+                                        </div>
+                                        <div class="checkbox-group">
+                                            <label class="checkbox-label">
+                                                <input type="checkbox" id="hasDisability">
+                                                <span class="checkmark"></span>
+                                                Person with Disability Relief (₦500,000)
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="calculate-btn">
+                                    <span>Calculate Tax</span>
+                                    <span class="btn-icon">→</span>
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="card results-card" id="resultsCard">
+                            <div class="card-header">
+                                <h2>Your Tax Breakdown</h2>
+                                <div class="period-display" id="periodDisplay">Monthly</div>
+                            </div>
+
+                            <div class="results-content">
+                                <div class="hero-stat">
+                                    <span class="hero-label">Take Home Pay</span>
+                                    <span class="hero-amount" id="takeHome">₦0</span>
+                                </div>
+
+                                <div class="divider"></div>
+
+                                <div class="breakdown-section">
+                                    <h3>Income</h3>
+                                    <div class="breakdown-item">
+                                        <span class="item-label">Gross Income</span>
+                                        <span class="item-value" id="displayGross">₦0</span>
+                                    </div>
+                                </div>
+
+                                <div class="breakdown-section">
+                                    <h3>Deductions</h3>
+                                    <div class="breakdown-item deduction">
+                                        <span class="item-label">
+                                            <span class="item-icon">📊</span>
+                                            PAYE Tax
+                                        </span>
+                                        <span class="item-value negative" id="payeAmount">-₦0</span>
+                                    </div>
+                                    <div class="breakdown-item deduction" id="pensionRow">
+                                        <span class="item-label">
+                                            <span class="item-icon">🏦</span>
+                                            Pension (8%)
+                                        </span>
+                                        <span class="item-value negative" id="pensionAmount">-₦0</span>
+                                    </div>
+                                    <div class="breakdown-item deduction" id="nhfRow">
+                                        <span class="item-label">
+                                            <span class="item-icon">🏠</span>
+                                            NHF (2.5%)
+                                        </span>
+                                        <span class="item-value negative" id="nhfAmount">-₦0</span>
+                                    </div>
+                                    <div class="breakdown-item deduction">
+                                        <span class="item-label">
+                                            <span class="item-icon">🛡️</span>
+                                            NSITF (1%)
+                                        </span>
+                                        <span class="item-value negative" id="nsitfAmount">-₦0</span>
+                                    </div>
+                                </div>
+
+                                <div class="breakdown-section relief-section" id="reliefSection">
+                                    <h3>Tax Relief Applied</h3>
+                                    <div class="breakdown-item relief" id="rentReliefRow">
+                                        <span class="item-label">
+                                            <span class="item-icon">🏷️</span>
+                                            Rent Relief
+                                        </span>
+                                        <span class="item-value positive" id="rentRelief">₦0</span>
+                                    </div>
+                                    <div class="breakdown-item relief" id="lifeAssuranceRow">
+                                        <span class="item-label">
+                                            <span class="item-icon">🛡️</span>
+                                            Life Assurance Relief
+                                        </span>
+                                        <span class="item-value positive" id="lifeAssuranceRelief">₦0</span>
+                                    </div>
+                                    <div class="breakdown-item relief" id="dependentRow">
+                                        <span class="item-label">
+                                            <span class="item-icon">👨‍👩‍👧‍👦</span>
+                                            Dependent Relief
+                                        </span>
+                                        <span class="item-value positive" id="dependentRelief">₦0</span>
+                                    </div>
+                                    <div class="breakdown-item relief" id="disabilityRow">
+                                        <span class="item-label">
+                                            <span class="item-icon">♿</span>
+                                            Disability Relief
+                                        </span>
+                                        <span class="item-value positive" id="disabilityRelief">₦0</span>
+                                    </div>
+                                </div>
+
+                                <div class="divider"></div>
+
+                                <div class="summary-section">
+                                    <div class="summary-item">
+                                        <span>Total Tax Due</span>
+                                        <span class="negative" id="totalDeductions">-₦0</span>
+                                    </div>
+                                    <div class="summary-item highlight">
+                                        <span>Effective Tax Rate</span>
+                                        <span id="effectiveRate">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tax-brackets-info">
+                                <h4>PAYE Tax Brackets (NTA 2025)</h4>
+                                <div class="brackets-grid">
+                                    <div class="bracket">
+                                        <span class="bracket-rate">0%</span>
+                                        <span class="bracket-range">₦0 - ₦800K</span>
+                                    </div>
+                                    <div class="bracket">
+                                        <span class="bracket-rate">15%</span>
+                                        <span class="bracket-range">₦800K - ₦3M</span>
+                                    </div>
+                                    <div class="bracket">
+                                        <span class="bracket-rate">18%</span>
+                                        <span class="bracket-range">₦3M - ₦12M</span>
+                                    </div>
+                                    <div class="bracket">
+                                        <span class="bracket-rate">21%</span>
+                                        <span class="bracket-range">₦12M - ₦25M</span>
+                                    </div>
+                                    <div class="bracket">
+                                        <span class="bracket-rate">23%</span>
+                                        <span class="bracket-range">₦25M - ₦50M</span>
+                                    </div>
+                                    <div class="bracket">
+                                        <span class="bracket-rate">25%</span>
+                                        <span class="bracket-range">Above ₦50M</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div><!-- Close calculator-wrapper -->
+            </section><!-- Close intro-section -->
+
+            <!-- Results Explanation Section -->
+            <section class="results-section">
+                <div class="results-wrapper">
+                    <!-- Results card will be moved here by CSS on desktop -->
+                </div>
+
+                <div class="results-explanation">
+                    <h2>Understanding Your Results</h2>
+                    <p class="explanation-text">
+                        Your tax breakdown shows exactly where your money goes and helps you understand your obligations
+                        under NTA 2025.
+                    </p>
+
+                    <div class="key-components">
+                        <h3>Key Components</h3>
+                        <div class="component-item">
+                            <strong>PAYE Tax:</strong> Progressive income tax based on your earnings bracket
+                        </div>
+                        <div class="component-item">
+                            <strong>Pension (8%):</strong> Mandatory retirement savings contribution for your future
+                        </div>
+                        <div class="component-item">
+                            <strong>NHF (2.5%):</strong> National Housing Fund contribution supporting homeownership
+                        </div>
+                        <div class="component-item">
+                            <strong>NSITF (1%):</strong> Employee compensation insurance for workplace protection
+                        </div>
                     </div>
 
-                    <div class="results-content">
-                        <div class="hero-stat">
-                            <span class="hero-label">Take Home Pay</span>
-                            <span class="hero-amount" id="takeHome">₦0</span>
-                        </div>
-
-                        <div class="divider"></div>
-
-                        <div class="breakdown-section">
-                            <h3>Income</h3>
-                            <div class="breakdown-item">
-                                <span class="item-label">Gross Income</span>
-                                <span class="item-value" id="displayGross">₦0</span>
-                            </div>
-                        </div>
-
-                        <div class="breakdown-section">
-                            <h3>Deductions</h3>
-                            <div class="breakdown-item deduction">
-                                <span class="item-label">
-                                    <span class="item-icon">📊</span>
-                                    PAYE Tax
-                                </span>
-                                <span class="item-value negative" id="payeAmount">-₦0</span>
-                            </div>
-                            <div class="breakdown-item deduction" id="pensionRow">
-                                <span class="item-label">
-                                    <span class="item-icon">🏦</span>
-                                    Pension (8%)
-                                </span>
-                                <span class="item-value negative" id="pensionAmount">-₦0</span>
-                            </div>
-                            <div class="breakdown-item deduction" id="nhfRow">
-                                <span class="item-label">
-                                    <span class="item-icon">🏠</span>
-                                    NHF (2.5%)
-                                </span>
-                                <span class="item-value negative" id="nhfAmount">-₦0</span>
-                            </div>
-                            <div class="breakdown-item deduction">
-                                <span class="item-label">
-                                    <span class="item-icon">🛡️</span>
-                                    NSITF (1%)
-                                </span>
-                                <span class="item-value negative" id="nsitfAmount">-₦0</span>
-                            </div>
-                        </div>
-
-                        <div class="breakdown-section relief-section" id="reliefSection">
-                            <h3>Tax Relief Applied</h3>
-                            <div class="breakdown-item relief" id="rentReliefRow">
-                                <span class="item-label">
-                                    <span class="item-icon">🏷️</span>
-                                    Rent Relief
-                                </span>
-                                <span class="item-value positive" id="rentRelief">₦0</span>
-                            </div>
-                            <div class="breakdown-item relief" id="lifeAssuranceRow">
-                                <span class="item-label">
-                                    <span class="item-icon">🛡️</span>
-                                    Life Assurance Relief
-                                </span>
-                                <span class="item-value positive" id="lifeAssuranceRelief">₦0</span>
-                            </div>
-                            <div class="breakdown-item relief" id="dependentRow">
-                                <span class="item-label">
-                                    <span class="item-icon">👨‍👩‍👧‍👦</span>
-                                    Dependent Relief
-                                </span>
-                                <span class="item-value positive" id="dependentRelief">₦0</span>
-                            </div>
-                            <div class="breakdown-item relief" id="disabilityRow">
-                                <span class="item-label">
-                                    <span class="item-icon">♿</span>
-                                    Disability Relief
-                                </span>
-                                <span class="item-value positive" id="disabilityRelief">₦0</span>
-                            </div>
-                        </div>
-
-                        <div class="divider"></div>
-
-                        <div class="summary-section">
-                            <div class="summary-item">
-                                <span>Total Tax Due</span>
-                                <span class="negative" id="totalDeductions">-₦0</span>
-                            </div>
-                            <div class="summary-item highlight">
-                                <span>Effective Tax Rate</span>
-                                <span id="effectiveRate">0%</span>
-                            </div>
-                        </div>
+                    <div class="tax-relief-info">
+                        <h3>Tax Relief Benefits</h3>
+                        <p class="explanation-text">
+                            The calculator automatically applies eligible reliefs including rent relief, dependent
+                            allowances, and life insurance premiums, reducing your taxable income and saving you money.
+                        </p>
                     </div>
 
-                    <div class="tax-brackets-info">
-                        <h4>PAYE Tax Brackets (NTA 2025)</h4>
-                        <div class="brackets-grid">
-                            <div class="bracket">
-                                <span class="bracket-rate">0%</span>
-                                <span class="bracket-range">₦0 - ₦800K</span>
-                            </div>
-                            <div class="bracket">
-                                <span class="bracket-rate">15%</span>
-                                <span class="bracket-range">₦800K - ₦3M</span>
-                            </div>
-                            <div class="bracket">
-                                <span class="bracket-rate">18%</span>
-                                <span class="bracket-range">₦3M - ₦12M</span>
-                            </div>
-                            <div class="bracket">
-                                <span class="bracket-rate">21%</span>
-                                <span class="bracket-range">₦12M - ₦25M</span>
-                            </div>
-                            <div class="bracket">
-                                <span class="bracket-rate">23%</span>
-                                <span class="bracket-range">₦25M - ₦50M</span>
-                            </div>
-                            <div class="bracket">
-                                <span class="bracket-rate">25%</span>
-                                <span class="bracket-range">Above ₦50M</span>
-                            </div>
-                        </div>
+                    <div class="next-steps">
+                        <h3>Next Steps</h3>
+                        <p class="explanation-text">
+                            Use this information for budgeting, salary negotiations, or tax planning. For complex tax
+                            situations or specific advice, consult a certified Nigerian tax professional.
+                        </p>
                     </div>
                 </div>
             </section>
@@ -323,19 +403,22 @@
                 <div class="info-card">
                     <div class="info-icon">👨‍💼</div>
                     <h3>For Employees</h3>
-                    <p>Calculate your exact take-home pay after all statutory deductions including PAYE, pension, and
+                    <p>Calculate your exact take-home pay after all statutory deductions including PAYE,
+                        pension, and
                         NHF.</p>
                 </div>
                 <div class="info-card">
                     <div class="info-icon">💻</div>
                     <h3>For Freelancers</h3>
-                    <p>Estimate your tax obligations and plan for quarterly or annual tax payments as a self-employed
+                    <p>Estimate your tax obligations and plan for quarterly or annual tax payments as a
+                        self-employed
                         individual.</p>
                 </div>
                 <div class="info-card">
                     <div class="info-icon">🏢</div>
                     <h3>For Business Owners</h3>
-                    <p>Plan payroll expenses and understand employer contributions like NSITF for your workforce.</p>
+                    <p>Plan payroll expenses and understand employer contributions like NSITF for your
+                        workforce.</p>
                 </div>
             </section>
         </main>
